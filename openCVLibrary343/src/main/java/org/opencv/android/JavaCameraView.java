@@ -118,17 +118,15 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
                             }
                         }
                     }
-                    if (localCameraIndex == CAMERA_ID_BACK) {
-                        Log.e(TAG, "Back camera not found!");
-                    } else if (localCameraIndex == CAMERA_ID_FRONT) {
-                        Log.e(TAG, "Front camera not found!");
-                    } else {
-                        Log.d(TAG, "Trying to open camera with new open(" + Integer.valueOf(localCameraIndex) + ")");
-                        try {
-                            mCamera = Camera.open(localCameraIndex);
-                        } catch (RuntimeException e) {
-                            Log.e(TAG, "Camera #" + localCameraIndex + "failed to open: " + e.getLocalizedMessage());
-                        }
+
+                    if(localCameraIndex == CAMERA_ID_BACK || localCameraIndex == CAMERA_ID_FRONT) {
+                        localCameraIndex = 0;
+                    }
+                    Log.d(TAG, "Trying to open camera with new open(" + Integer.valueOf(localCameraIndex) + ")");
+                    try {
+                        mCamera = Camera.open(localCameraIndex);
+                    } catch (RuntimeException e) {
+                        Log.e(TAG, "Camera #" + localCameraIndex + "failed to open: " + e.getLocalizedMessage());
                     }
                 }
             }
